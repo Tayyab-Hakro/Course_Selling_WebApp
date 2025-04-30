@@ -1,14 +1,12 @@
 // models/User.js
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    trim: true,
     unique: true,
-    minlength: 3
   },
   email: {
     type: String,
@@ -16,7 +14,6 @@ const userSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    match: [/.+@.+\..+/, 'Please fill a valid email address']
   },
   password: {
     type: String,
@@ -25,4 +22,6 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-export const UserSignUpModel = mongoose.model('User', userSchema);
+
+const UserSignUpModel = mongoose.model('User', userSchema);
+ export default UserSignUpModel
