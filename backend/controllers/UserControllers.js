@@ -47,3 +47,6 @@ export const Login =   async (req, res) => {
   }
 };
 
+export const Logout = () =>{
+    const token = COOKI
+}
