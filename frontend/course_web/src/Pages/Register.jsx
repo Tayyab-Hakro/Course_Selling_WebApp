@@ -32,10 +32,11 @@ function Register() {
 
       const response = await axios.post(endpoint, payload);
       setMessage(response.data.msg || 'Success');
-        navigate("/")
+        navigate("/login")
       // Optionally save token
       if (isLogin) {
         localStorage.setItem('token', response.data.token);
+        window.dispatchEvent(new Event("authchange"))
         navigate("/")
     }
     } catch (err) {
