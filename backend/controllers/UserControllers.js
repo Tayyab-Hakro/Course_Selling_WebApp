@@ -47,6 +47,15 @@ export const Login =   async (req, res) => {
   }
 };
 
-export const Logout = () =>{
-    const token = COOKI
+export const AdminLogin =async(req, res) =>{
+try{
+  const {email , password}= req.body;
+  if(email === process.env.Admin_Email && password === process.env.Admin_Password){
+    const token = jwt.sign(email+password,process.env.JWT_SECRET)
+    return res.status(200).json({success : true ,token})
+  }
+}catch(error){
+  console.log(error)
 }
+  
+} 
