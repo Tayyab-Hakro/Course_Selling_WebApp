@@ -47,15 +47,25 @@ export const Login =   async (req, res) => {
   }
 };
 
-export const AdminLogin =async(req, res) =>{
-try{
-  const {email , password}= req.body;
-  if(email === process.env.Admin_Email && password === process.env.Admin_Password){
-    const token = jwt.sign(email+password,process.env.JWT_SECRET)
-    return res.status(200).json({success : true ,token})
+export const AdminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(
+        { email, role: "admin" },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      return res.status(200).json({ success: true, token });
+    } else {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+  } catch (error) {
+    console.error("Login Error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
-}catch(error){
-  console.log(error)
-}
-  
-} 
+};
