@@ -1,30 +1,31 @@
-import jwt from 'jsonwebtoken';
-
+import jwt from 'jsonwebtoken'
 export const verifyAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log(authHeader)
+  console.log("Authorization Header:", authHeader); // 👈 See if token is received
 
-  // Check if Authorization header exists and starts with 'Bearer '
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    console.log("No token or invalid format");
     return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
   }
 
   const token = authHeader.split(' ')[1];
+  console.log("Token extracted:", token); // 👈 Confirm extracted token
 
   try {
-    // Verify token using the secret key
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token:", decoded); // 👈 Check token payload
 
-    // Check if role is admin (if your token includes it)
     if (decoded.role !== 'admin') {
+      console.log("Role is not admin");
       return res.status(403).json({ success: false, message: 'Forbidden: Not an admin' });
     }
 
-    // Add decoded token data to request object
     req.admin = decoded;
+    console.log("Admin verified successfully ✅");
 
-    next(); // Pass to next middleware or route handler
+    next();
   } catch (error) {
+    console.log("Token verification failed:", error.message);
     return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token' });
   }
 };
