@@ -10,7 +10,6 @@ const router = express.Router();
 router.post('/signup', SignUp);
 router.post('/login', Login);
 router.post('/admin/login', AdminLogin);
-router.get('/admin/verify', verifyAdmin);
 
 router.post('/admin/create',verifyAdmin, CreateCourse);
 

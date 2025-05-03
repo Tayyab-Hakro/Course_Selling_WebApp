@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // Define video subdocument schema
 const VideoSchema = new mongoose.Schema({
-  videoTitle: {
+  title: {
     type: String,
     required: true,
   },

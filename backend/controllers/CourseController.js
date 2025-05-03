@@ -2,27 +2,29 @@ import CourseModel from "../models/CourseModel.js";
 
 export const CreateCourse = async (req, res) => {
   try {
-    const { title, description, price, Videotitle, url } = req.body;
+    const { title, description, price, videos } = req.body;
 
-    // Check for required fields
-    if (!title || !description || !price || !Videotitle || !url) {
-      return res.status(400).json({ message: "Please fill all required fields" });
+    // Validate input
+    if (!title || !description || !price || !Array.isArray(videos) || videos.length === 0) {
+      return res.status(400).json({ message: "Please provide all required fields and at least one video." });
     }
 
-    // Create new course with a single video inside videos array
-    const Course = new CourseModel({
+    // Optional: Validate each video
+    for (const video of videos) {
+      if (!video.title || !video.url) {
+        return res.status(400).json({ message: "Each video must include a title and URL." });
+      }
+    }
+
+    // Create and save course
+    const newCourse = new CourseModel({
       title,
       description,
       price,
-      videos: [
-        {
-          videoTitle: Videotitle,
-          url,
-        },
-      ],
+      videos,
     });
 
-    await Course.save();
+    await newCourse.save();
 
     return res.status(200).json({ message: "Course successfully created" });
   } catch (error) {
