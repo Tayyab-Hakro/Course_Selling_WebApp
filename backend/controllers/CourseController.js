@@ -1,3 +1,4 @@
+import { compareSync } from "bcryptjs";
 import CourseModel from "../models/CourseModel.js";
 
 export const CreateCourse = async (req, res) => {
@@ -32,3 +33,13 @@ export const CreateCourse = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
+
+export const getCreatedCourses = async(req , res)=>{
+  try{
+    const getcourse = await  CourseModel.find()
+    return res.status(200).json({ message: "get data successfully created" ,data:getcourse});
+
+  }catch(error){
+    console.log(error)
+  }
+}

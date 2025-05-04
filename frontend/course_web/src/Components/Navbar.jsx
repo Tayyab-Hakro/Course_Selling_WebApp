@@ -32,7 +32,9 @@ const Navbar = () => {
 
       {/* Center: Home */}
       <div className="flex-1 text-center">
-        <h1 className="text-xl font-bold text-black cursor-pointer">Home</h1>
+     <Link to={'/'}>   <h1 className="text-xl font-bold text-black cursor-pointer">Home</h1></Link>
+<Link to={'/course'}>        <li className="text-black font-semibold cursor-pointer hover:text-blue-600">Course</li></Link>
+
       </div>
 
       {/* Right: Auth Buttons */}
