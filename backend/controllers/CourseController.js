@@ -10,7 +10,6 @@ export const CreateCourse = async (req, res) => {
       return res.status(400).json({ message: "Please provide all required fields and at least one video." });
     }
 
-    // Optional: Validate each video
     for (const video of videos) {
       if (!video.title || !video.url) {
         return res.status(400).json({ message: "Each video must include a title and URL." });
@@ -43,3 +42,24 @@ export const getCreatedCourses = async(req , res)=>{
     console.log(error)
   }
 }
+
+export const UpdateCourses = async (req, res) => {
+  try {
+    const updatedCourse = await CourseModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    console.log(updatedCourse);
+    res.status(200).json(updatedCourse);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
