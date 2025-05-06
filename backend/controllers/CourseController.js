@@ -48,14 +48,13 @@ export const UpdateCourses = async (req, res) => {
     const updatedCourse = await CourseModel.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!updatedCourse) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    console.log(updatedCourse);
     res.status(200).json(updatedCourse);
     
   } catch (error) {

@@ -13,7 +13,7 @@ router.post('/admin/login', AdminLogin);
 
 router.post('/admin/create',verifyAdmin, CreateCourse);
 router.get('/admin/getcourse', getCreatedCourses);
-router.put('/admin/updatecourse/:id', UpdateCourses);
+router.put('/admin/updatecourse/:id', verifyAdmin, UpdateCourses);
 
 
 
