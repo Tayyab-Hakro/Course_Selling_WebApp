@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Create from "./pages/Create";
+import Update from "./pages/Update";
 function App() {
   return (
     <Router>
@@ -12,6 +13,8 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/createpost" element={<Create/>} />
+        <Route path="/update/:id" element={<Update/>} />
+
 
 
       </Routes> 

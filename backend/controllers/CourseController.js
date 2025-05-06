@@ -62,3 +62,35 @@ export const UpdateCourses = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+
+
+ export const DeleteCourse = async (req, res) => {
+  try {
+    const deletedCourse = await CourseModel.findByIdAndDelete(req.params.id);
+
+    if (deletedCourse) {
+      return res.status(200).json({ success: true, message: "Course Deleted" });
+    } else {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
+
+  } catch (error) {
+    console.error("DeleteCourse error:", error);
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const SingleCourse = async (req, res) => {
+  try {
+    const data = await CourseModel.findById(req.params.id);
+    
+    if (!data) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 export const verifyAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("Authorization Header:", authHeader); // 👈 See if token is received
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.log("No token or invalid format");

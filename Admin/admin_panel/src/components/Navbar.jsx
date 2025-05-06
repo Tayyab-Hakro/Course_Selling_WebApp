@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md px-4 py-3 flex justify-between items-center">
-      <h1 className="text-xl font-semibold text-black">My App</h1>
+      <Link to={'/'}> <h1 className="text-xl font-semibold text-black">Dashboard</h1 ></Link>
     <h1 className='text-2xl font-bold'>  <Link to={'/createpost'} >CreateCourse</Link> </h1>
       {isLogged ? (
         <button
